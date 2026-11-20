@@ -1,0 +1,25 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Verify HTML file exists
+        run: test -f index.html && echo "index.html found!"
+
+      - name: Run HTML content test
+        run: grep -qi "</html>" index.html && echo "HTML check passed!"
